@@ -40,14 +40,19 @@ def main():
     directories = ["digits/0","digits/1","digits/2","digits/3","digits/4","digits/5","digits/6","digits/7","digits/8","digits/9"]
     images = convert(directories[0])
     file_name = 'processed_digits.csv'
+    labels = np.array(['0'] * images.shape[0])
 
     for i in range(1, len(directories)):
         converted_images = convert(directories[i])
+        converted_labels = np.array([str(i)] * converted_images.shape[0])
+
         images = np.concatenate([images, converted_images])
+        labels = np.concatenate([labels, converted_labels])
     
     images_ = [image for image in images]
+    labels_ = [label for label in labels]
 
-    df = pd.DataFrame({'image': images_}, columns=['image'])
+    df = pd.DataFrame({'image': images_, 'label': labels_}, columns=['image', 'label'])
     save_as_csv(file_name, df)
 
 
