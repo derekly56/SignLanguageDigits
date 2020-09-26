@@ -15,7 +15,7 @@ def convert(dir):
     return images_arr
 
 def main():
-    directories = ["0","1","2","3","4","5","6","7","8","9"]
+    directories = ["digits/0","digits/1","digits/2","digits/3","digits/4","digits/5","digits/6","digits/7","digits/8","digits/9"]
     images = np.array(convert(directories[0]))
     for i in range(1, len(directories)):
         images = np.concatenate([images, np.array(convert(directories[i]))])
