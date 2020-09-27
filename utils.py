@@ -46,7 +46,7 @@ def process_data(df):
         y_test (np.ndarray): Testing label dataset
     '''
     images_np = df[df.columns.difference(['label', 'Unnamed: 0'])].to_numpy(dtype=np.float64)
-    labels = df['label'].to_numpy()
+    labels = df['label'].to_numpy(dtype='i')
     images_np /= 255
 
     images_reshaped = [image.reshape((100, 100, 3)) for image in images_np]
