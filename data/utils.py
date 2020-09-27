@@ -52,7 +52,9 @@ def main():
     images_ = [image for image in images]
     labels_ = [label for label in labels]
 
-    df = pd.DataFrame({'image': images_, 'label': labels_}, columns=['image', 'label'])
+    df = pd.DataFrame(images_)
+    df['label'] = labels_
+
     save_as_csv(file_name, df)
 
 
