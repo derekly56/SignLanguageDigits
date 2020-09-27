@@ -45,9 +45,12 @@ def process_data(df):
         X_test (np.ndarray): Testing dataset
         y_test (np.ndarray): Testing label dataset
     '''
-    images = df.loc[:, df.columns != 'label']
+    images_np = df[df.columns.difference(['label', 'Unnamed: 0'])].to_numpy(dtype=np.float64)
     labels = df['label'].to_numpy()
-    images /= 255
+    images_np /= 255
+
+    images_reshaped = [image.reshape((100, 100, 3)) for image in images_np]
+    images = np.array(images_reshaped)
 
     X_train, X_test, y_train, y_test = train_test_split(images, labels, test_size=0.1, shuffle=True)
     X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=0.1, shuffle=True)
