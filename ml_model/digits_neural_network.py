@@ -95,7 +95,7 @@ class DigitNeuralNetwork:
 
         # FC Hidden Layer 4 - Weights/Bias -> Layer Calculation
         W4, b4 = self._create_weights_and_bias([flatten_conv.get_shape()[1:4].num_elements(), 256], 256)
-        fc_layer4 = tf.tadd(tf.matmul(flatten_conv, W4), b4)
+        fc_layer4 = tf.add(tf.matmul(flatten_conv, W4), b4)
         fc_layer4_batch_norm = tf.compat.v1.layers.batch_normalization(fc_layer4, training=is_training)
         fc_layer4_activation = self._activation('ReLu', fc_layer4_batch_norm)
 
