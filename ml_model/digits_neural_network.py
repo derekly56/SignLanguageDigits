@@ -110,8 +110,8 @@ class DigitNeuralNetwork:
         y_preds = self._activation('Softmax', fc_layer6_batch_norm)
 
         # Loss and Optimization
-        loss_tensor = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_preds, labels=y))
-        optimizer = tf.train.AdamOptimizer(learning_rate=0.01).minimize(loss_tensor)
+        loss_tensor = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=y, logits=y_preds))
+        optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=0.01)
         correct_preds = tf.equal(tf.argmax(y_preds, -1), tf.argmax(y, -1))
         accuracy_tensor = tf.reduce_mean(tf.cast(correct_preds, tf.float32))
 
