@@ -14,22 +14,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-'''
-
-matrix = [
-    [1,2,3],
-    [4,5,6]
-]
-
-Shape = (2, 3)
-
-flat_matrix = [1,2,3,4,5,6]
-1 x 6
-
-image = 100 x 100 x 3
-flat_image = 30000
-
-2000, 30000
-'''
