@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import math
 
+from sklearn.model_selection import train_test_split
+
 def create_dataframe(file_name: str) -> pd.DataFrame:
     '''Opens up .CSV file and create a dataframe
     
@@ -30,7 +32,7 @@ def one_hot_encode(y_labels: np.ndarray):
     return one_hot_labels
 
 def process_data(df):
-    '''Processes data into train, validation, and test
+    '''Processes data into train, validation, and test and one-hot encode labels
     
     Args:
         df (pd.DataFrame): Dataframe containing images dataseet
@@ -43,9 +45,15 @@ def process_data(df):
         X_test (np.ndarray): Testing dataset
         y_test (np.ndarray): Testing label dataset
     '''
-    images = df['image'].values
-    labels = df['label'].values
-
+    images = df.loc[:, df.columns != 'label']
+    labels = df['label'].to_numpy()
     images /= 255
 
-    X_train, X_test, y_train, y_test = train_test_split(images, labels, test_size=0.1)
+    X_train, X_test, y_train, y_test = train_test_split(images, labels, test_size=0.1, shuffle=True)
+    X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=0.1, shuffle=True)
+
+    y_train = one_hot_encode(y_train)
+    y_valid = one_hot_encode(y_valid)
+    y_test = one_hot_encode(y_test)
+
+    return X_train, y_train, X_valid, y_valid, X_test, y_test
