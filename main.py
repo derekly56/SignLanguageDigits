@@ -10,7 +10,10 @@ from utils import create_dataframe, one_hot_encode, process_data
 def main():
     file_name = 'data/processed_digits.csv'
     df = create_dataframe(file_name)
-    process_data(df)
+    X_train, y_train, X_valid, y_valid, X_test, y_test = process_data(df)
+
+    DigitNN = DigitNeuralNetwork(epochs=100, batch_size=32)
+    DigitNN.fit(X_train, y_train, X_valid, y_valid, X_test, y_test)
 
 if __name__ == "__main__":
     main()
