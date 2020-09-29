@@ -34,12 +34,14 @@ def save_as_csv(file_name: str, df: pd.DataFrame):
         file_name (string): Name of file to save to
         df (pd.DataFrame): Dataframe containing images data
     '''
-    df.to_csv(file_name)
+    df.to_csv(file_name, index=False)
 
 def main():
     directories = ["digits/0","digits/1","digits/2","digits/3","digits/4","digits/5","digits/6","digits/7","digits/8","digits/9"]
     images = convert(directories[0])
-    file_name = 'processed_digits.csv'
+    file_name_input = 'processed_digits_input.csv'
+    file_name_label = 'processed_digits_label.csv'
+    
     labels = np.array(['0'] * images.shape[0])
 
     for i in range(1, len(directories)):
@@ -49,13 +51,14 @@ def main():
         images = np.concatenate([images, converted_images])
         labels = np.concatenate([labels, converted_labels])
     
-    images_ = [image for image in images]
+    images_ = np.array([image for image in images])
     labels_ = [label for label in labels]
+    
+    df_images = pd.DataFrame(images_)
+    df_labels = pd.DataFrame(labels_)
 
-    df = pd.DataFrame(images_)
-    df['label'] = labels_
-
-    save_as_csv(file_name, df)
+    save_as_csv(file_name_input, df_images)
+    save_as_csv(file_name_label, df_labels)
 
 
 if __name__ == "__main__":
