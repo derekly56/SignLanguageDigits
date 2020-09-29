@@ -1,4 +1,5 @@
 .ipynb_checkpoints
 __pycache__/
 processed_digits/
-processed_digits.csv
+processed_digits_input.csv
+processed_digits_label.csv
